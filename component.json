@@ -1,0 +1,11 @@
+{
+  "name": "localForage-setItems",
+  "version": "1.0.0",
+  "dependencies": {
+    "then/promise": "5.0.0"
+  },
+  "scripts": [
+    "src/localforage-setItems.js"
+  ],
+  "main": "src/localforage-setItems.js"
+}
