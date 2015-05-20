@@ -1,10 +1,10 @@
 {
-  "name": "localForage-setItems",
+  "name": "localforage-setitems",
   "author": "Thodoris Greasidis",
   "description": "Adds setItems method to localForage.",
   "keywords": [
     "localforage",
-    "sessionstorage"
+    "setItems"
   ],
   "version": "1.0.0",
   "homepage": "https://github.com/thgreasi/localForage-setItems",

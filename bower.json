@@ -1,6 +1,6 @@
 {
-  "name": "localForage-setItems",
-  "version": "1.0.0",
+  "name": "localforage-setitems",
+  "version": "1.0.1",
   "main": [
     "src/localforage-setItems.js"
   ],
