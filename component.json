@@ -5,7 +5,7 @@
     "then/promise": "5.0.0"
   },
   "scripts": [
-    "src/localforage-setItems.js"
+    "src/localforage-setitems.js"
   ],
-  "main": "src/localforage-setItems.js"
+  "main": "src/localforage-setitems.js"
 }

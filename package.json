@@ -31,8 +31,8 @@
     "phantomjs": "^1.9.7-12",
     "uglify-js": "^2.3.x"
   },
-  "browser": "src/localforage-setItems.js",
-  "main": "src/localforage-setItems.js",
+  "browser": "src/localforage-setitems.js",
+  "main": "src/localforage-setitems.js",
   "licence": "Apache-2.0",
   "bugs": {
     "url": "http://github.com/thgreasi/localForage-setItems/issues"
