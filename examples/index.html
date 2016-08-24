@@ -33,23 +33,31 @@
       }).then(function() {
         var t0 = performance.now();
         var putDone = localforage.setItems(items);
-        putDone.then(function() {
+        return putDone.then(function() {
           var t1 = performance.now();
           console.log('Completed setItems ' + driver + ' after ' + (t1 - t0) + ' milliseconds.');
-          localforage.keys().then(function (keys) {
+          return localforage.keys().then(function (keys) {
             console.log(keys);
+            return localforage.getItem(keys[0]).then(function (x) {
+              console.log(keys[0], x);
+            });
           });
         });
-        return putDone;
       }).then(function(){
         return localforage.clear();
       }).then(function(){
         if (driver !== localforage.LOCALSTORAGE) {
           var t0 = performance.now();
           var putDone = localforage.setItems.generic.call(localforage, items);
-          putDone.then(function() {
+          return putDone.then(function() {
             var t1 = performance.now();
             console.log('Completed setItemsGeneric ' + driver + ' after ' + (t1 - t0) + ' milliseconds.');
+            return localforage.keys().then(function (keys) {
+              console.log(keys);
+              return localforage.getItem(keys[0]).then(function (x) {
+                console.log(keys[0], x);
+              });
+            });
           });
         }
       });

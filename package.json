@@ -1,6 +1,6 @@
 {
   "name": "localforage-setitems",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Adds setItems method to localForage.",
   "homepage": "https://github.com/thgreasi/localForage-setItems",
   "main": "dist/localforage-setitems.js",
