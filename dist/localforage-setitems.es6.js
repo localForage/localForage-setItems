@@ -56,8 +56,8 @@ function forEachItem(items, keyFn, valueFn, loopFn) {
 function setItemsIndexedDB(items, keyFn, valueFn, callback) {
     var localforageInstance = this;
 
-    var promise = new Promise(function (resolve, reject) {
-        localforageInstance.ready().then(function () {
+    var promise = localforageInstance.ready().then(function () {
+        return new Promise(function (resolve, reject) {
             // Inspired from @lu4 PR mozilla/localForage#318
             var dbInfo = localforageInstance._dbInfo;
             var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
@@ -71,6 +71,12 @@ function setItemsIndexedDB(items, keyFn, valueFn, callback) {
                 reject(lastError || event.target);
             };
 
+            function requestOnError(evt) {
+                var request = evt.target || this;
+                lastError = request.error || request.transaction.error;
+                reject(lastError);
+            }
+
             forEachItem(items, keyFn, valueFn, function(key, value) {
                 // The reason we don't _save_ null is because IE 10 does
                 // not support saving the `null` type in IndexedDB. How
@@ -80,13 +86,9 @@ function setItemsIndexedDB(items, keyFn, valueFn, callback) {
                     value = undefined;
                 }
                 var request = store.put(value, key);
-                request.onerror = function() {
-                    lastError = request.error || request.transaction.error;
-                    reject(lastError);
-                };
+                request.onerror = requestOnError;
             });
-
-        }).catch(reject);
+        });
     });
     executeCallback(promise, callback);
     return promise;
