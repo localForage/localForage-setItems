@@ -11,7 +11,7 @@
             return getSerializerPromise.result;
         }
         if (!localForageInstance || typeof localForageInstance.getSerializer !== 'function') {
-            Promise.reject(new Error('localforage.getSerializer() was not available! ' + 'localforage v1.4+ is required!'));
+            return Promise.reject(new Error('localforage.getSerializer() was not available! ' + 'localforage v1.4+ is required!'));
         }
         getSerializerPromise.result = localForageInstance.getSerializer();
         return getSerializerPromise.result;
@@ -70,10 +70,10 @@
                 var store = transaction.objectStore(dbInfo.storeName);
                 var lastError;
 
-                transaction.oncomplete = function() {
+                transaction.oncomplete = function () {
                     resolve(items);
                 };
-                transaction.onabort = transaction.onerror = function(event) {
+                transaction.onabort = transaction.onerror = function (event) {
                     reject(lastError || event.target);
                 };
 
@@ -83,7 +83,7 @@
                     reject(lastError);
                 }
 
-                forEachItem(items, keyFn, valueFn, function(key, value) {
+                forEachItem(items, keyFn, valueFn, function (key, value) {
                     // The reason we don't _save_ null is because IE 10 does
                     // not support saving the `null` type in IndexedDB. How
                     // ironic, given the bug below!
