@@ -12,9 +12,9 @@ Adds setItems method to [localForage](https://github.com/mozilla/localForage).
 `npm i localforage-setitems`
 
 
-##jsperf links
-* [default driver order (indexedDB prefered)](http://jsperf.com/localforage-setitems)
-* [websql (not for firefox)](http://jsperf.com/localforage-setitems-websql)
+## jsperf links
+* [default driver order (indexedDB prefered)](https://jsperf.com/localforage-setitems-2017/1)
+* [websql (not for firefox)](https://jsperf.com/localforage-setitems-websql-2017b/1)
 
 ## API
 You can pass an array with the key-value pairs:
