@@ -11,6 +11,8 @@ function getSerializerPromise(localForageInstance) {
     return getSerializerPromise.result;
 }
 
+
+
 function executeCallback(promise, callback) {
     if (callback) {
         promise.then(function (result) {
@@ -163,8 +165,8 @@ function localforageSetItems(items, keyFn, valueFn, callback) {
     }
 }
 
-function extendPrototype(localforage) {
-    var localforagePrototype = Object.getPrototypeOf(localforage);
+function extendPrototype(localforage$$1) {
+    var localforagePrototype = Object.getPrototypeOf(localforage$$1);
     if (localforagePrototype) {
         localforagePrototype.setItems = localforageSetItems;
         localforagePrototype.setItems.indexedDB = function () {
