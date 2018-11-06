@@ -55,9 +55,23 @@ function forEachItem(items, keyFn, valueFn, loopFn) {
     return result;
 }
 
+// Safari could garbage collect transaction before oncomplete/onerror/onabord being dispatched
+// reference transaction to stop it being garbage collected and remove the reference when it finish
+var _refTransaction = {};
+var _refTransactionId = 0;
+
+function refTransaction(tx) {
+    var id = _refTransactionId++;
+    _refTransaction[id] = tx;
+    return function () {
+        delete _refTransaction[id];
+    };
+}
+
 function setItemsIndexedDB(items, keyFn, valueFn, callback) {
     var localforageInstance = this;
 
+    var unref = undefined;
     var promise = localforageInstance.ready().then(function () {
         return new Promise(function (resolve, reject) {
             // Inspired from @lu4 PR mozilla/localForage#318
@@ -65,6 +79,8 @@ function setItemsIndexedDB(items, keyFn, valueFn, callback) {
             var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
             var store = transaction.objectStore(dbInfo.storeName);
             var lastError;
+
+            unref = refTransaction(transaction);
 
             transaction.oncomplete = function () {
                 resolve(items);
@@ -92,6 +108,7 @@ function setItemsIndexedDB(items, keyFn, valueFn, callback) {
             });
         });
     });
+    promise.then(unref, unref);
     executeCallback(promise, callback);
     return promise;
 }
